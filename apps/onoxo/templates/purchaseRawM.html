@@ -1,0 +1,70 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+
+<h1 class="title">
+  PURCHASE RAW MATERIALS
+</h1>
+<div class="Fstblock">
+  <div class="naimenov">
+    <p class ="idishka"> № </p>
+    <p class="item"> Raw material </p>
+    <p class="item"> Amount </p>
+    <p class="item"> Sum </p>
+    <p class="item"> Date </p>
+    <p class="item"> Employee </p>
+  </div>
+  {% for i in purchaseRawM %}
+  <form method="post" class="formanyu">
+    {% if forloop.counter <= 15 %}
+    
+    {% csrf_token %}
+    <div class="textBoxes" id="EmpTextB">
+    <input class="inp" list="phonesList" readonly type="text" name="model" value="{{forloop.counter}}" />
+    <input class="inp" list="lists" readonly value="{{i.raw_material}}" />
+    <!-- <datalist id="lists">
+      {% for i in purchaseRawM %}
+      <option value="{{i.raw_material}}" placeholder="{{i.raw_material}}"></option>
+      {% endfor %}
+    </datalist> -->
+    <input class="inp" list="phonesList" readonly type="text" name="amount" value="{{i.amount}}" />
+    <input class="inp" list="phonesList" readonly type="text" name="model" value="{{i.sum}}" />
+    <input class="inp" list="phonesList" readonly type="text" name="model" value="{{i.date}}" />
+    <input class="inp" list="lists" readonly value="{{i.employee}}" />
+    <!-- <datalist id="lists">
+      {% for i in purchaseRawM %}
+      <option value="{{i.employee}}" placeholder="{{i.employee}}"></option>
+      {% endfor %}
+    </datalist> -->
+    <input class="inp" list="phonesList" type="text" name="id" readonly style="display: none;" readonly value="{{i.id}}" />
+    <div class="formelem">
+      <a class = "formelem" href="{% url 'purchaseRawMEdit' i.id %}"> Удалить / Изменить </a>
+      </div>
+</div>
+</form>
+{%endif%}
+{%endfor%}
+<form method="post" class="formanyu">
+  {% csrf_token %}
+  <div class="textBoxes" id="EmpTextB">
+  <input class="inp" list="phonesList" type="text" name="" value="#" />
+  <input class="inp" list="list091" name = "raw_material" placeholder="raw_material" />
+  <datalist id="list091">
+    {% for i in raw_material %}
+    <option value="{{i.name}}" >{{i.name}}</option>
+    {% endfor %}
+  </datalist>
+  <input class="inp" list="phonesList" type="text" name="amount" placeholder="amount" />
+  <input class="inp" list="phonesList" type="number" name="sum" placeholder="sum" />
+  <input class="inp" list="phonesList" type="date" name="date" placeholder="date" />
+  <input class="inp" list="lists" name ="employee" />
+  <datalist id="lists">
+    {% for i in employee %}
+    <option value="{{i.name}}" >{{i.name}}</option>
+    {% endfor %}
+  </datalist>
+  <input class="del" type="submit"  required name="updates" value="Создать" />
+  <h4>
+    {{error}}
+  </h4>
+  </form>
+
+{%endblock%}

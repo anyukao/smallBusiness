@@ -1,0 +1,48 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+
+<h1 class="title">
+  FINISHED PRODUCTS
+</h1>
+<div class="Fstblock">
+    <div class="naimenov">
+      <p class = "item "> № </p>
+      <p class = "item "> Name </p>
+      <p class = "item "> Unit </p>
+      <p class = "item "> Amount </p>
+      <p class = "item "> Sum </p>
+    </div>
+  {% for i in finishedProduct %}
+        <form method="post" class="formanyu">
+           {% csrf_token %}
+          <div class="textBoxes" id="EmpTextB">
+                <input class="idshka" list="phonesList" readonly type="text" name=" " value="{{forloop.counter}}" />
+                <input class="inp" list="phonesList" readonly type="text" name="name" value="{{i.name}}" />
+                <input class="inp" list="lists" readonly value="{{i.unit}}" /> 
+                <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly value="{{i.id}}" />
+                <input class="inp" required list="phonesList" readonly type="text" name="amount" value="{{i.amount}}" />
+                <input class="inp" required list="phonesList" readonly type="text" name="sum" value="{{i.sum}}" />
+                <div class="formelem">
+                  <a class = "formelem" href="{% url 'finishedProductedit' i.id %}"> Удалить / Изменить </a>
+          </div>
+          </div>
+        </form>  
+  {%endfor%}
+        <form method="post">
+          {% csrf_token %}
+          <div class="textBoxes" id="EmpTextB">
+                <input class="inp" list="phonesList" type="text" readonly name="name" placeholder="#" />
+                <input class="inp" list="phonesList" type="text" name="name" placeholder="name" />
+                <input class="inp" list="list09" name = "unit"/> 
+                  <datalist id="list09" >
+                    {% for i in units %}
+                    <option value="{{i.name}}">{{i.name}}</option>
+                    {% endfor %}
+                  </datalist>
+                <input class="inp" required list="phonesList" type="text" name="amount" placeholder="amount" />
+                <input class="inp" required list="phonesList" type="text" name="sum" placeholder="sum" />
+                <input class="del" type="submit" required name="updates" value="Создать" />
+          </div>
+      </form>  
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "headerfooter.html" %}{% block hf %}
+{% load static %}
+
+
+<h1 class="title">
+    BUDJET
+</h1>
+<div class="Fstblock">
+    <div class="naimenov">
+        <!-- <p> ID </p> -->
+        <p> Budjet amount </p>
+        <p> Percent </p>
+        <p> Bonus </p>
+    </div>
+    {% for i in budget %}
+    {% if forloop.counter <= 15 %}
+    <form method="post" id = "formanyu">k
+        {% csrf_token %}
+     <div class="textBoxes" id="EmpTextB">
+        <!-- <input class="inp" list="phonesList" type="text" name="model" value="{{forloop.counter }}" /> -->
+        <input class="inp" list="phonesList" readonly type="text" name="amount" value="{{ i.budjet_amount}}" />
+        <input class="inp" list="phonesList" readonly type="text" name="precent" value="{{ i.percent }}" />
+        <input class="inp" list="phonesList" readonly type="text" name="bonus" value="{{ i.bonus }}" />
+        <input class="inp" list="phonesList" readonly type="text" name="id" style="display: none;" readonly value="{{i.id}}" />
+        <div class="formelem">
+            <a class = "formelem" href="{% url 'budjetEdit' i.id %}"> Удалить / Изменить </a>
+    </div>
+</div>
+</form>
+{%endif%}
+{% endfor %}
+    <form method="post">
+        <div class="textBoxesPost">
+        {% csrf_token %}
+        <input class="inp" required list="phonesList" type="text" name="amount" placeholder="budjet_amount" />
+        <input class="inp" required list="phonesList" type="text" name="precent" placeholder="precent" />
+        <input class="inp" required list="phonesList" type="text" name="bonus" placeholder="bonus" />
+        <input class="del" type="submit"  required name="updates" value="Создать" />
+    </div>
+    </form>
+
+</div>
+<style>
+    .naimenov{
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+    grid-gap: 0%;
+    margin-top: 24px;}
+    .textBoxes{
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+    grid-gap: 0%;
+    margin-top: 0%;
+  } 
+  </style>
+
+{% endblock %}

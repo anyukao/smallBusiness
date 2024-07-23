@@ -1,0 +1,66 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+
+<h1 class="title">
+  PRODUCTION
+</h1>
+<div class="Fstblock">
+  <div class="naimenov">
+    <p class = "idishka"> № </p>
+    <p class="item"> Product </p>
+    <p class="item"> Amount </p>
+    <p class="item"> Date </p>
+    <p class="item"> Employee </p>
+  </div>
+  {% for i in production %}
+  <form method="post" class="formanyu">
+    {% if forloop.counter <= 15 %}
+    <div class="textBoxes" id="EmpTextB">
+    {% csrf_token %}
+      <input class="idshka" list="phonesList" type="text" readonly name="model" value="{{forloop.counter}}" />
+      <input class="inp" list="list03" value="{{i.product}}"  readonly name="product" />
+      <!-- <datalist id="list03">
+        {% for i in finishedProduct %}
+        <option value="{{i.name}}">{{i.name}}</option>
+        {% endfor %}
+      </datalist> -->
+      <input class="inp" list="phonesList" type="text" readonly name="amount" value="{{i.amount}}" />
+      <input class="inp" list="phonesList" type="" readonly name="date" value="{{i.date}}" />
+      <input class="inp" list="list02" value="{{i.employee}}" readonly name="employee" />
+      <!-- <datalist id="list02">
+        {% for i in employee %}
+        <option value="{{i.name}}">{{i.name}}</option>
+        {% endfor %}
+      </datalist> -->
+      <input class="inp" list="phonesList" type="text" name="id" style = "display: none;" readonly value="{{i.id}}" />
+      <div class="formelem">
+        <a class = "formelem" href="{% url 'productionEdit' i.id %}"> Удалить / Изменить </a>
+        </div>
+</div>
+</form>
+    {%endif%}
+    {% endfor %}
+    <form method="post">
+      <div class="textBoxesPost">
+        {% csrf_token %}
+        
+      <input class="idshka" list="phonesList" type="text" name="model" value="#" />
+        <input class="inp" list="list10" name="product" />
+        <datalist id="list10">
+          {% for i in finishedProduct %}
+          <option value="{{i.name}}"></option>
+          {% endfor %}
+        </datalist>
+        <input class="inp" list="phonesList" type="text" name="amount" placeholder="amount" />
+        <input class="inp" list="phonesList" type="date" name="date" placeholder="date" />
+        <input class="inp" list="list11" name="employee" />
+        <datalist id="list11">
+          {% for i in employee %}
+          <option value="{{i.name}}">{{i.name}}</option>
+          {% endfor %}
+        </datalist>
+        <input class="inp" type="submit" required name="updates" value="Создать" />
+    </div>
+  </form>
+  {{error}}
+</div>
+{%endblock%}

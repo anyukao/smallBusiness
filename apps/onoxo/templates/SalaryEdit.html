@@ -1,0 +1,59 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+<h1 class="title">
+    SALARY
+</h1>
+
+<div class="naimenov">
+    <p class="item"> Employee </p>
+    <p class="item"> Participations in Purchase </p>
+    <p class="item"> Participations in Production </p>
+    <p class="item"> Participations in Sale </p>
+    <p class="item"> Salary </p>
+</div>
+
+<form method="post" class="formanyu">
+    <div class="textBoxes" id="EmpTextB">
+
+        {% csrf_token %}
+
+        <div class="textBoxes">
+            <input class="inp" type="text" readonly name="employee" value="{{salarry.employee.name}}" />
+            <input class="inp" type="text" readonly value="{{salarry.numberOfParticip_Purchase}}" />
+            <input class="inp" readonly type="text" value="{{salarry.numberOfParticip_Production}} " />
+            <input class="inp" type="text" readonly value="{{salarry.numberOfParticip_Sale}} " />
+
+            <input class="inp" type="text" name="salary" value="{{salarry.salary}}" />
+
+            <div class="textBoxes">
+                <input class="del" type="submit" name="updates" value="Сохранить" />
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .dateYM {
+            margin-left: 0%;
+            background-color: rgba(6, 8, 8, 0);
+            border: 1px solid rgb(57, 55, 55);
+            border-radius: 7%;
+        }
+
+        .naimenov {
+            margin-top: 50px;
+            grid-template-columns: 200px 250px 250px 250px 250px 150px;
+        }
+
+        .textBoxes {
+            grid-template-columns: 200px 250px 250px 250px 250px 150px;
+            width: 50%;
+        }
+
+        .opisDaty {
+            display: grid;
+            grid-template-columns: 200px 200px;
+            grid-gap: 0%;
+        }
+    </style>
+
+    {%endblock%}

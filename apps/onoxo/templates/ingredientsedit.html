@@ -1,0 +1,92 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+<h1 class="title">
+  INGREDIENTS
+</h1>
+ <div class="Fstblock">
+    <div class="naimenov" >
+      <p class="item"> Product </p>
+      <p class="item"> Raw material </p>
+      <p class="item"> Amount </p>
+    </div>
+    <div class="formsl" id="divedit">
+        <form method="post">
+            <div class="textBoxes">
+                {% csrf_token %}
+                <input class="inp" required list="lists3344" value="{{ingredients.product}}" name="idprod">
+                <datalist id="lists3344">
+                    {% for i in finish_prod %}
+                    <option value="{{i.name}}">{{i.name}}</option>
+                    {% endfor %}
+                </datalist>
+                <input class="inp" required list="lists334" value="{{ingredients.raw_material}}" name="raw_material">
+                <datalist id="lists334">
+                    {% for i in raw_material %}
+                    <option value="{{i.name}}">{{i.name}}</option>
+                    {% endfor %}
+                </datalist>
+          <input class="inp" list="phonesList" type="text" name="amount" value="{{ingredients.amount}}" />
+          <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly value="{{ingredients.id}}" />
+          <input class="del" type="submit" name="updates" value="Сохранить" />
+    
+        </div>
+    </form>
+</div>
+
+
+      <div class = "naimenov">
+        <button id="myBtn" class="del">Удалить</button>
+        <a class = "formelem" href="{% url 'Ingredients' %}"> Назад</a>
+        </div>
+        <form method="post">
+            <div class="formsl" id="divviews" >
+                <div class="textBoxes">
+                    {% csrf_token %}
+                    <!-- <input class="inp" list="phonesList" type="text" name=" " value="{{forloop.counter}}" /> -->
+        
+                    
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <input class="inp" style="display:none;" list="lists3344" value="{{ingredients.product}}" name="idprod">
+                            <p>Вы действительно хотите удалить ингредиенты? {{ingredients.product}}</p>
+                            <div class = "delClose">
+                            <input class="delMyModal" type="submit" name="updates" required value="Удалить" />
+                            <span id="close">Закрыть</span>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script>
+            var modal = document.getElementById("myModal");
+            var btn2 = document.getElementById("myBtn");
+            var span = document.getElementById("close");
+        
+            btn2.onclick = function () {
+                modal.style.display = "block";
+            }
+        
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+        
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+        <style>
+            .naimenov{
+            display: grid;
+            grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+            grid-gap: 0%;
+            margin-top: 24px;}
+            .textBoxes{
+            display: grid;
+            grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+            grid-gap: 0%;
+            margin-top: 0%;
+          } 
+          </style>
+{% endblock %}

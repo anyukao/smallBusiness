@@ -1,0 +1,63 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+<h1 class="title">
+    JOB TITLE
+</h1>
+<div class="Fstblock">
+    <div class="naimenov">
+        <!-- <p> ID </p> -->
+        <p class = "item "> № </p>
+        <p class = "item "> JOB TITLE </p>
+    </div>
+    <div class="formsl" id="divedit">
+        <form method="post">
+           <div class="textBoxes">
+        {% csrf_token %}
+            <input class="idshka" type="text" readonly name="model" value="1" />
+            <input class="inp" type="text" name="job" value="{{ jobs.job_title }}" />
+            <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly value="{{jobs.id}}" />
+            <input class="del" type="submit" name="updates" value="Сохранить" />
+            </div>
+        </form>
+    </div>
+    <div class = "naimenov">
+        <button id="myBtn" class="del">Удалить</button>
+        <a class = "formelem" href="{% url 'jobTitlePage' %}"> Назад</a>
+        </div>
+        <form method="post">
+            <div class="formsl" id="divviews" >
+                <div class="textBoxes">
+                    {% csrf_token %}
+                    <!-- <input class="inp" list="phonesList" type="text" name=" " value="{{forloop.counter}}" /> -->
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <p>Вы действительно хотите удалить данные? {{jobs.name}}</p>
+                            <div class = "delClose">
+                            <input class="delMyModal" type="submit" name="updates" required value="Удалить" />
+                            <span id="close">Закрыть</span>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script>
+            var modal1 = document.getElementById("myModal");
+            var btn3 = document.getElementById("myBtn");
+            var span1 = document.getElementById("close");
+        
+            btn3.onclick = function () {
+                modal1.style.display = "block";
+            }
+            
+            span1.onclick = function () {
+                modal1.style.display = "none";
+            }
+        
+            window.onclick = function (event) {
+                if (event.target == modal1) {
+                    modal1.style.display = "none";
+                }
+            }
+        </script>
+
+{% endblock %}

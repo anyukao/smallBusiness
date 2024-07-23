@@ -1,0 +1,82 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+
+<h1 class="title">
+  PURCHASE RAW MATERIALS
+</h1>
+<div class="Fstblock">
+  <div class="naimenov">
+    <p class ="idishka"> № </p>
+    <p class="item"> Raw material </p>
+    <p class="item"> Amount </p>
+    <p class="item"> Sum </p>
+    <p class="item"> Date </p>
+    <p class="item"> Employee </p>
+  </div>
+  <div class="formsl" id="divedit">
+    <form method="post">
+        <div class="textBoxes">
+    {% csrf_token %}
+    <input class="inp" list="phonesList" readonly type="text" name="model" value="{{forloop.counter}}" />
+    <input class="inp" list="lists" name = "raw_material" value="{{purchaseRawM.raw_material}}" />
+    <datalist id="lists">
+      {% for i in Raw_material %}
+      <option value="{{i.name}}">{{i.name}}</option>
+      {% endfor %}
+    </datalist>
+    <input class="inp" list="phonesList" type="text" name="amount" value="{{purchaseRawM.amount}}" />
+    <input class="inp" list="phonesList" type="number" name="sum" value="{{purchaseRawM.sum}}" />
+    <input class="inp" list="phonesList" type="date" name="date" value="{{purchaseRawM.date}}" />
+    <input class="inp" list="lists" name = "employee" value="{{purchaseRawM.employee}}" />
+    <datalist id="lists" >
+      {% for i in employee %}
+      <option value="{{i.name}}" ></option>
+      {% endfor %}
+    </datalist>
+    <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly value="{{purchaseRawM.id}}" />
+    <input class="del" type="submit" name="updates" value="Сохранить" />
+</div>
+</form>
+</div>
+<div class = "naimenov">
+    <button id="myBtn" class="del">Удалить</button>
+    <a class = "formelem" href="{% url 'purchaseRawM' %}"> Назад</a>
+    </div>
+    <form method="post">
+        <div class="formsl" id="divviews" >
+            <div class="textBoxes">
+                {% csrf_token %}
+                <!-- <input class="inp" list="phonesList" type="text" name=" " value="{{forloop.counter}}" /> -->
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <p>Вы действительно хотите удалить данные? {{purchaseRawM.raw_material}}</p>
+                        <div class = "delClose">
+                        <input class="delMyModal" type="submit" name="updates" required value="Удалить" />
+                        <span id="close">Закрыть</span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn2 = document.getElementById("myBtn");
+        var span = document.getElementById("close");
+    
+        btn2.onclick = function () {
+            modal.style.display = "block";
+        }
+    
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+    
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    
+    
+    {% endblock %}

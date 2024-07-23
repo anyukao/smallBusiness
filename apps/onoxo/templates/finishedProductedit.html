@@ -1,0 +1,75 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+
+<h1 class="title">
+  FINISHED PRODUCTS
+</h1>
+<div class="Fstblock">
+    <div class="naimenov">
+      <p class = "item "> Name </p>
+      <p class = "item "> Unit </p>
+      <p class = "item "> Amount </p>
+      <p class = "item "> Sum </p>
+    </div>
+    <div class="formsl" id="divedit">
+       <form method="post">
+          <div class="textBoxes">
+           {% csrf_token %}
+                <input class="inp" list="phonesList" type="text" name="name" value="{{finishedProduct.name}}" />
+                <input class="inp" list="list09" name = "unit" value="{{finishedProduct.unit}}" /> 
+                <datalist id="list09" >
+                  {% for i in units %}
+                  <option value="{{i.name}}">{{i.name}}</option>
+                  {% endfor %}
+                </datalist>
+                <input class="inp" list="phonesList" type="text" name="id"  style="display: none;"  value="{{finishedProduct.id}}" />
+                <input class="inp" required list="phonesList"  type="text" name="amount" value="{{finishedProduct.amount}}" />
+                <input class="inp" required list="phonesList"  type="text" name="sum" value="{{finishedProduct.sum}}" />
+                <input class="del" type="submit" name="updates" value="Сохранить" />
+            </div>
+        </form>
+    </div>
+  
+<div class = "naimenov">
+
+    <button id="myBtn" class="del">Удалить</button>
+    <a class = "formelem" href="{% url 'finishedProduct' %}"> Назад</a>
+
+    </div>
+    <form method="post">
+        <div class="formsl" id="divviews" >
+            <div class="textBoxes">
+                {% csrf_token %}
+                <!-- <input class="inp" list="phonesList" type="text" name=" " value="{{forloop.counter}}" /> -->
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <p>Вы действительно хотите удалить данные? {{finishedProduct.name}}</p>
+                        <div class = "delClose">
+                        <input class="delMyModal" type="submit" name="updates" required value="Удалить" />
+                        <span id="close">Закрыть</span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        var modal1 = document.getElementById("myModal");
+        var btn3 = document.getElementById("myBtn");
+        var span1 = document.getElementById("close");
+    
+        btn3.onclick = function () {
+            modal1.style.display = "block";
+        }
+    
+        span1.onclick = function () {
+            modal1.style.display = "none";
+        }
+    
+        window.onclick = function (event) {
+            if (event.target == modal1) {
+                modal1.style.display = "none";
+            }
+        }
+    </script>
+    
+{% endblock %}

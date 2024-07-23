@@ -1,0 +1,35 @@
+{% extends "headerfooter.html" %}{% block hf %}
+{% load static %}
+<h1 class="title">
+    UNIT
+</h1>
+<div class="Fstblock">
+    <div class = "naimenov">
+        <p class ="idishka"> № </p>
+        <p class = "item"> Единица измерения </p>
+    </div>
+
+    {% for i in units %}
+    <form method="post" class="formanyu">
+    {% if forloop.counter <= 15 %} 
+    <div class="textBoxes" id="EmpTextB">
+        {% csrf_token %}
+        <input class="inp" type="text" readonly name="model" value="{{forloop.counter }}" />
+        <input class="inp" type="text" name="name" value="{{ i.name }}" />
+        <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly value="{{i.id}}" />
+        <div class="formelem">
+            <a class = "formelem" href="{% url 'unitEdit' i.id %}"> Удалить / Изменить </a>
+    </div>
+</form>
+</div>
+{%endif%}
+{% endfor %}
+<form method="post">
+    <div class="textBoxesPost">
+        {% csrf_token %}
+        <input class="inp" required list="phonesList" type="text" name="name" placeholder="name" />
+        <input class="del" type="submit" required name="updates" value="Создать" />
+
+    </div>
+</form>
+{% endblock %}

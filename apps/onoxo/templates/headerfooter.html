@@ -1,0 +1,22 @@
+{% load static %}
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>BRACKETS</title>
+  <meta name="description" content="   ">
+  <link rel="stylesheet" type="text/css" href="{% static '/ForPages.css' %}" media="all">
+</head>
+
+<body>
+  <form action="/">
+    <button class="back">MENU</button>
+  </form>
+  {% block hf %}
+
+  {% endblock %}
+</body>
+
+</html>

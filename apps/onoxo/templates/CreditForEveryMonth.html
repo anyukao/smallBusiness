@@ -1,0 +1,107 @@
+{% extends "headerfooter.html" %}
+{% block hf %}
+{% load static %}
+
+<h1 class="title">
+    BANK OPERATIONS
+</h1>
+<div class="naimenov">
+    <p>Sum</p>
+    <p>Part of credit</p>
+    <p>Percent</p>
+    <p>Penalties (пени)</p>
+    <p>Date</p>
+    <p>Status</p>
+    
+</div>
+
+
+<div class="Secondblock">
+    {% for credit_month in credit %}
+    <div class="textBoxes">
+            <p>{{ credit_month.SumRemains }}</p>
+            <p>{{ credit_month.SumForMonth }}</p>
+            <p>{{ credit_month.SumWithPercent }}</p>
+
+            <p>{{ credit_month.penalties }}</p>
+            <p>{{ credit_month.dateOfPayment }}</p>
+            {% if  credit_month.status == "True" %}
+                <p>Оплачено</p>
+            {% elif  credit_month.status == "False" %}
+                <p>Не оплачено</p>
+                <form method="post">
+                    {%csrf_token%}
+                    <input class="inp" required  type="number" style="display:none;" name="id" value="{{credit_month.id}}" />
+                    <button type="submit" class = "del" >Оплатить</button>
+                </form>
+            {% else %}
+                <p>{{credit_month.status }}</p>
+
+            {% endif %}
+
+    </div><br>
+    {% endfor %}
+</div>
+
+<style>
+    .naimenov{
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+    grid-gap: 0%;
+    margin-top: 24px;}
+    .naimenov1{
+    display: grid;
+    grid-template-columns: 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px;
+    grid-gap: 0%;
+    margin-top: 24px;}
+    .textBoxesPost{
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+    grid-gap: 0%;
+    margin-top: 0%;
+  } 
+  .del{
+    color:rgb(0, 97, 57);
+     font-size: 106%;
+  }
+  .textBoxes{
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+    grid-gap: 0%;
+    margin-top: 0%;
+  } 
+  </style>
+{% endblock %}
+
+
+Управление должностями работников:
+
+Возможность ввода, просмотра, добавления, удаления и обновления информации о должностях работников предприятия.
+Управление каталогом продуктов:
+
+Возможность ввода, просмотра, добавления, удаления и обновления информации о продуктах предприятия.
+Подборка ингредиентов для каждого продукта:
+
+При выборе определенного продукта в форме должна отображаться информация о видах и количестве необходимых ингредиентов для единицы выбранного продукта.
+Производство продукции:
+
+Возможность производства продукции на основе информации об ингредиентах.
+Уменьшение количества и стоимости ингредиентов в соответствии с произведенным количеством продукции.
+Увеличение склада готовой продукции, учитывая количество произведенной продукции и стоимость использованных ингредиентов.
+Управление закупкой сырья:
+
+Возможность просмотра, добавления, удаления и обновления информации о закупке сырья.
+При добавлении новой записи в таблицу "Закупка сырья" проверка наличия достаточного бюджета для закупки сырья.
+Уменьшение бюджета и увеличение склада сырья при успешной закупке.
+Вывод соответствующего сообщения, если бюджет не позволяет совершить закупку.
+Управление единицами измерения сырья:
+
+Возможность добавления, удаления и обновления информации об единицах измерения для каждого вида сырья.
+Управление бюджетом:
+
+Возможность изменения бюджета (только один).
+Добавление, удаление и обновление имеющегося сырья с учетом бюджета.
+Добавление поля "Процент" в таблицу "Бюджет" для установки процента добавления к себестоимости продукта при продаже.
+Продажа продукции:
+
+Проверка наличия требуемого количества продук

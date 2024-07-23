@@ -1,0 +1,36 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+<h1 class="title">
+    JOB TITLE
+</h1>
+<div class="Fstblock">
+    <div class="naimenov">
+        <!-- <p> ID </p> -->
+        <p class = "item "> № </p>
+        <p class = "item "> JOB TITLE </p>
+    </div>
+    {% for i in jobs %}
+    <form method="post" class="formanyu">
+        {% csrf_token %}
+        <div class="textBoxes" id="EmpTextB">
+            <input class="idshka" type="text" readonly name="model" value="{{forloop.counter }}" />
+            <input class="inp" type="text" name="job" value="{{ i.job_title }}" />
+            <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly value="{{i.id}}" />
+            <div class="formelem">
+                <a class = "formelem" href="{% url 'jobTitlePageedit' i.id %}"> Удалить / Изменить </a>
+            </div>
+        </div>
+        </form>
+</div>
+{% endfor %}
+<form method="post">
+    <div class="textBoxes" id="EmpTextB">
+        {% csrf_token %}
+        <input class="inp" required list="phonesList" type="text" name="job" readonly placeholder="#" />
+        <input class="inp" required list="phonesList" type="text" name="job" placeholder="job" />
+        <input class="del" type="submit"  required name="updates" value="Создать" />
+
+    </div>
+</form>
+</div>
+
+{% endblock %}

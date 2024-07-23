@@ -1,0 +1,118 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+<h1 class="title">
+  SALARY
+</h1>
+<div class="Fstblock">
+  <div class="opisDaty"> 
+    <p class ="item"> Choose the month and year: </p> 
+    <form method="post">
+      {% csrf_token %}
+      <input  class  = "dateYM" type="month" name="year_month"/>
+      <input  class  = "Searchb" type="submit" value="search"/>
+    </form>
+    <form method="post">
+      {% csrf_token %}
+      <input  class  = "dateYM" style="display: none;" type="text" name="year_month" value="{{year_month}}"/>
+      <input  class  = "dateYM" style="display: none;" type="text" name="status" value="True"/>
+      <div class = "opisDaty">
+      <p class ="item"> Filtered by date : {{year_month}} </p> 
+      <p class ="item1"> Your budjet: {{sumbudj}}</p>
+      <p class ="item1">{{error}}</p>
+      
+      {%if per == 0 %}
+      <input  class  = "giveSelButton" type="submit" value="TO PAY SALARY"/>
+      {%endif%}
+     
+    </div>
+    </form>
+  
+    </div>
+  </div>
+  
+  <div class="naimenov">
+    <p class = "idishka"> № </p>
+    <p class ="item"> Employee </p>
+    <p class ="item"> Participations in Purchase </p>
+    <p class ="item"> Participations in Production </p>
+    <p class ="item"> Participations in Sale </p>
+    <p class ="item"> Amount </p>
+    <p class ="item"> Bonus </p>
+    <p class ="item"> Oklad </p>
+    <p class ="item"> Salary </p>
+  </div>
+
+  {%for i in salarry%}
+  <form method="post" class="formanyu">
+    <div class="textBoxes" id="EmpTextB">
+
+    {% csrf_token %}
+   
+    <div class = "textBoxes">
+    <input class="idshka" list="phonesList" type="text" readonly name="model" value = {{forloop.counter}}  />
+    <input class="inp"  type="text" readonly name="employee" value="{{i.employee.name}}"  />
+    <input class="inp"  type="text" readonly  value="{{i.numberOfParticip_Purchase}}"  />
+    <input class="inp"  readonly type="text"   value="{{i.numberOfParticip_Production}} " />
+    <input class="inp"  type="text"  readonly  value="{{i.numberOfParticip_Sale}} " />
+    <input class="inp"  type="text"  readonly  value="{{i.amount}} " />
+    <input class="inp"  type="text"  readonly  value="{{i.bonus}} " />
+    <input class="inp"  type="text"  readonly  value="{{i.oklad}} " />
+    <input class="inp"  type="text" readonly name="Salary" value = "{{i.salary}}" />
+    {%if i.status == "True" %}
+    <img class = "imgchack" src="https://pics.freeicons.io/uploads/icons/png/3321881181556281942-512.png">
+    {%else%} 
+      <a class = "formelem" href="{% url 'salaryedit' i.id %}"> Изменить </a>
+     {% endif %}
+     
+   
+  </div>
+</div>
+</form>
+{%endfor%}
+
+<style>
+  .dateYM{
+    margin-left: 0%;
+    background-color: rgba(6, 8, 8, 0);
+    border:1px solid rgb(57, 55, 55);
+    border-radius: 7%;
+    margin-top: 10px;
+    padding-top: 5px;
+  }
+  .imgchack{
+    width: 20px ;
+    margin-left: 40px;
+  }
+  .naimenov{
+    margin-top: 50px;
+  grid-template-columns: 70px 130px 210px 210px 200px 150px 80px 150px 100px 100px;  
+  }
+  .textBoxes{
+    grid-template-columns: 70px 130px 210px 210px 200px 150px 80px 150px 100px 100px ;  
+width: 50%;
+  }
+  .opisDaty{
+    display: grid;
+  grid-template-columns: 200px 250px 250px 200px;
+  grid-gap: 0%;
+  
+  }
+  .item1 {
+font-weight: bold;
+color:rgb(152, 6, 6);
+}
+.giveSelButton{
+  border-radius: 50%;
+  background-color: rgb(176, 139, 90);
+  font-weight: bold;
+}
+.Searchb{
+  background-color: rgb(180, 142, 84);
+  border: 0.5px;
+  border-radius: 10%;
+  width: 70px;
+}
+</style>
+
+{%endblock%}
+
+ 

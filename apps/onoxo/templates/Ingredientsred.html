@@ -1,0 +1,140 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+<h1 class="title">
+  INGREDIENTS
+</h1>
+ <div class="Fstblock">
+    <div class="naimenov" >
+      <p class="item"> Product </p>
+      <p class="item"> Raw material </p>
+      <p class="item"> Amount </p>
+    </div>
+
+    <div class="finish_prodIngred" >
+      <select id = "list666" class ="combo">
+        <option value="{{product.name}}">{{product.name}}</option>
+        {% for j in finish_prod %}
+        <option value="{{j.name}}">{{j.name}}</option>
+        {%endfor%}
+      </select>
+    </div>
+  
+    {% for j in finish_prod %}
+    {% for i in ingredients %}
+    {% if j == i.product %}
+    
+   <div class = "log" >
+          <div style="display: none;" class = "InIngredients" data-value="{{i.product}}" >
+            <div class = "prosto">
+            <input class="inp " list="lists" value="{{i.raw_material}}" />
+            <input class="inp" list="phonesList" type="text" name="model" value="{{i.amount}}" />
+            <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly value="{{i.id}}" />
+            <div class="formelem">
+              <a class = "formelem" href="{% url 'ingredientsedit' i.id %}"> Удалить / Изменить </a>
+            </div>
+          </div>
+           
+         
+         </div> 
+    </div>
+    <style>
+      .log{
+        display: block;
+      }
+    </style>
+    {%endif%}
+    {%endfor%}
+    {%endfor%}
+    
+    <form method="post">
+      <div  class = "" data-value="{{1.product}}" >
+        <p>Выбранный продукт:</p>
+      <input class="inp idprod" type="text" name="idprod" readonly value="" />
+      <div class="Fstblock">
+          {% csrf_token %}
+          <div class = " " placeholder="product"  >
+            
+            <!-- <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly value="{{i.id}}" /> -->
+      <input class="inp" list="phonesList" type="text" name="product" style="display: none;" readonly value="{{1.product.name}}" />
+            <input class="inp" required list="lists334"  name="raw_material">
+            <datalist id="lists334">
+                {% for i in raw_material %}
+                <option value="{{1.name}}">{{i.name}}</option>
+                {% endfor %}
+            </datalist>
+            <input class="inp" list="phonesList" type="text" name="amount" placeholder="amount" />
+          <input class="inp" type="submit" required name="updates" value="Создать" />
+      </div>
+     </div>
+    </form>
+    {{error}}
+   </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  
+ const divWrapper = document.querySelector(".combo")
+ const divIngredients = document.querySelectorAll(".InIngredients")
+ var idprod = document.querySelector(".idprod")
+ divIngredients.forEach((item) => {
+      if(item.dataset.value == divWrapper.value) {
+        item.style.display = "block"
+      }
+      
+    })
+    idprod.value = divWrapper.value
+ divWrapper.addEventListener("click", (e) => {
+    divIngredients.forEach((item) => {
+        item.style.display = "none"
+    })
+    divIngredients.forEach((item) => {
+      if(item.dataset.value == e.target.options[e.target.options.selectedIndex].value) {
+        item.style.display = "block"
+      }
+    })
+    idprod.value = divWrapper.value
+ })
+  
+})
+</script>
+<style>
+  .naimenov{
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+  grid-gap: 0%;
+  margin-top: 24px;}
+  .textBoxes{
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+  grid-gap: 0%;
+  margin-top: 0%;
+} 
+</style>
+
+
+<!-- <br><br><br><br>
+  <form method="post">
+    <div class="textBoxesPost">
+      {% csrf_token %}
+      <input class="inp2" list="lists" placeholder="Наименование" />
+      <datalist id="lists">
+        {% for i in ingredients %}
+        <option value=""></option>
+        {% endfor %}
+      </datalist>
+      <input class="inp2" list="lists" placeholder="Вид" />
+      <datalist id="lists">
+        {% for i in ingredients %}
+        <option value=""></option>
+        {% endfor %}
+      </datalist>
+      <input class="inp2" list="phonesList" type="text" name="amount" placeholder="Количество" />
+      <input class="inp2" type="submit" name="jobcreate" placeholder="submit" />
+    </div>
+
+</form> -->
+
+
+
+{%endblock%}

@@ -1,0 +1,80 @@
+{% extends "headerfooter.html" %}
+{% block hf %}
+{% load static %}
+
+<h1 class="title">
+    BANK OPERATIONS
+</h1>
+
+<!-- Форма для ввода данных -->
+<form method="POST" action="{% url 'credit' %}">
+    {% csrf_token %}
+    <div class="Fstblock">
+        <div class="naimenov">
+            <p>Sum</p>
+            <p>Term (срок)</p>
+            <p>Percent</p>
+            <p>Penalties (пени)</p>
+            
+        </div>
+        <div class="textBoxesPost">
+            <input class="inp" required  type="number" name="sum" placeholder="sum" />
+            <input class="inp" required  type="number" name="term" placeholder="term" />
+            <input class="inp" required  type="number" name="percent" placeholder="percent" />
+            <input class="inp" required  type="number" name="penalties" placeholder="penalties" />
+            <button type="submit" class = "del">Calculate</button>
+        </div>
+    </div>
+</form>
+
+    <div class="Secondblock">
+        <div class="naimenov1">
+            <p>Sum</p>
+            <p>Term (срок)</p>
+            <p>Percent</p>
+            <p>Penalties (пени)</p>
+            <p>Date Of payment</p>
+        </div>
+        {% for credit_month in credit %}
+        <div class="textBoxes">
+           
+                <p>{{ credit_month.sum }}</p>
+                <p>{{ credit_month.term }}</p>
+                <p>{{ credit_month.percentOfCredit }}</p>
+                <p>{{ credit_month.penalties }}</p>
+                <p>{{ credit_month.dateOfPayment }}</p>
+                <button class = "del" type="button" onclick = "window.location.href='/credit/{{credit_month.id}}'">Просмотреть</button>
+      
+        </div>
+        {% endfor %}
+    </div>
+
+<style>
+    .naimenov{
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+    grid-gap: 0%;
+    margin-top: 24px;}
+    .naimenov1{
+    display: grid;
+    grid-template-columns: 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px;
+    grid-gap: 0%;
+    margin-top: 24px;}
+    .textBoxesPost{
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px 200px 200px 200px 200px;
+    grid-gap: 0%;
+    margin-top: 0%;
+  } 
+  .textBoxes{
+    display: grid;
+    grid-template-columns: 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px;
+    grid-gap: 0%;
+    margin-top: 0%;
+  } 
+  .del{
+    color:rgb(0, 97, 57);
+    font-size: 105%;
+  }
+  </style>
+{% endblock %}

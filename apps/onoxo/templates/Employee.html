@@ -1,0 +1,99 @@
+{% extends "headerfooter.html" %}{% block hf %}{% load static %}
+
+<h1 class="title">
+    EMPLOYEE
+</h1>
+<div class="Fstblock">
+    <div class="naimenov" >
+        <p class="idishka"> № </p> 
+        <p class="item"> First name </p>
+        <p class="item"> Name </p>
+        <p class="item"> Second name </p>
+        <p class="item"> Job title </p>
+        <p class="item"> Selery </p>
+        <p class="item"> Adress </p>
+        <p class="item"> Phone number </p>
+        <p class="item"> Date of Birth </p>
+    </div>
+    {% for i in employee %}
+    <form method="post" class="formanyu">
+    {% if forloop.counter <= 25 %} 
+        <div class="textBoxes" id="EmpTextB">
+            {% csrf_token %}
+                <input class="idshka" list="phonesList" type="text" name=" " value="{{forloop.counter}}" />
+                <input class="inp" list="phonesList" type="text" readonly name="first_name" value="{{i.first_name}}" />
+                <input class="inp" list="phonesList" type="text" readonly name="name" value="{{i.name}}" />
+                <input class="inp" list="phonesList" type="text" readonly name="second_name"
+                    value="{{i.second_name}}" />
+                <input class="inp" required value="{{i.job_title}}" readonly name="job_title">
+                <input class="inp" list="phonesList" readonly type="text" name="selery" value="{{i.selery}}" />
+                <input class="inp" list="phonesList" readonly type="text" name="adress" value="{{i.adress}}" />
+                <input class="inp" list="phonesList" readonly type="text" name="phone_number"
+                    value="{{i.phone_number}}" />
+                <input class="inp" list="phonesList" readonly type="text" name="" value="{{i.date_of_birth}}" />
+                <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly  value="{{i.id}}" />
+                    <div class="formelem">
+                            <a class = "formelem" href="{% url 'employeeedit' i.id %}"> Удалить / Изменить </a>
+                    </div>
+        </div>
+        
+    </form>
+
+<!-- <form class = textBoxes method="post">
+            {% csrf_token %}
+            <input class="inp" list="phonesList" type="text" name="id" style="display: none;" readonly value="{{i.id}}" />
+            <input class="inp" type="submit" name="updates" required  value="Удалить" />
+        </form> -->
+
+{%endif%}
+{%endfor%}
+
+<form method="POST">
+    <div class="textBoxes">
+        {% csrf_token %}
+        <input class="inp" required list="phonesList" type="text" name="first_name" readonly placeholder="#" />
+        <input class="inp" required list="phonesList" type="text" name="first_name" placeholder="First name" />
+        <input class="inp" required list="phonesList" type="text" name="name" placeholder="Name" />
+        <input class="inp" required list="phonesList" type="text" name="second_name" placeholder="Second name" />
+        <input class="inp" required list="lists01" name="job_title">
+        <datalist id="lists01">
+            {% for i in jobs %}
+            <option value="{{i.job_title}}">{{i.job_title}}</option>
+            {% endfor %}
+        </datalist>
+        <input class="inp" required list="phonesList" type="text" name="selery" placeholder="Selery" />
+        <input class="inp" required list="phonesList" type="text" name="adress" placeholder="Address" />
+        <input class="inp" required list="phonesList" type="text" name="phone_number" placeholder="Phone number" />
+        <input class="inp" required list="phonesList" type="date" name="date_of_birth" placeholder="Date of birth" />
+        <input class="inp" type="submit" required name="updates" value="Создать" />
+    </div>
+   
+</form>
+
+
+</div>
+<style>
+    .naimenov{
+  display: grid;
+  grid-template-columns: 50px 150px 150px 150px 150px 150px 150px 150px 150px 150px;
+  grid-gap: 0%;
+  margin-top: 24px;
+}
+.textBoxes{
+  display: grid;
+  grid-template-columns: 50px 150px 150px 150px 150px 150px 150px 150px 150px 150px;
+  grid-gap: 0%;
+  margin-top: 0%;
+}
+.formanyu{
+    margin-left: 0px;
+}
+body{
+    margin-left: 15px;
+}
+
+</style>
+
+{% endblock %}
+
+

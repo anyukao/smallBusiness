@@ -1,0 +1,59 @@
+.items{
+    display: grid;
+    grid-template-columns: 300px 300px ;
+    grid-gap:20%;
+    margin-left: 35%;
+    margin-top: 7%;
+     text-align: center;
+}
+.items>a{
+    text-decoration: none;
+    color: black; 
+    font-size: 20px;
+}
+a:hover{
+    color:rgba(139, 134, 158, 1);}
+a,a:hover{
+       -webkit-transition: all,0.3s ease;
+     -moz-transition: all,0.3s ease;
+      -o-transition: all,0.3s ease;
+     -ms-transition: all,0.3s ease;
+     transition: all,0.3s ease;}
+.clear{  clear:both;}
+.title{
+    text-align: center;
+     margin-left: 21%;
+    margin-top: 10%;
+    font-size: 40px;
+}
+body{
+    background-image: url(/static/img/155015-minimalizm-voda-oblako-prut-derevo-3840x2160.jpg);
+    background-repeat:no-repeat;
+    background-size: 100%;
+    margin: 4%;
+     
+}
+
+
+.inpform{
+    width: 120px;
+    padding: 5px 20px 5px 20px;
+    border: 0.5 black double;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  
+  }
+  .btnform{
+      width: 120px;
+    border-radius: 10px;
+    background: aliceblue;
+    border: 1 black solid;
+    color: black;
+    cursor: pointer;
+    
+  }
+  .btnform:hover{
+    background: black;
+    color: aliceblue;
+  
+  }
